@@ -1,2 +1,3 @@
 # MLP
-Implementing Multi Layer Perceptron from scratch
+
+A Multi-Layer Perceptron implemented from scratch, inspired by Andrej Karpathy's `micrograd`.
