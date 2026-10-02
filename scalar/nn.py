@@ -1,5 +1,5 @@
 import random
-from engine import Value
+from scalar.engine import Value
 
 # Neuron is one cell basically
 class Neuron:
