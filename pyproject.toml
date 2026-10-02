@@ -1,0 +1,21 @@
+[project]
+name = "mlp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "rohb", email = "rohbdevt@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "graphviz>=0.21",
+    "ipykernel>=7.4.0",
+    "matplotlib>=3.11.2",
+]
+
+[project.scripts]
+mlp = "mlp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"

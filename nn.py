@@ -82,6 +82,24 @@ class MLP:
     def _parameters(self):
         return [p for layer in self.layers for p in layer.parameters]
 
+    def forward(self, xs):
+
+        ypred = [self(x) for x in xs]
+
+        return ypred
+
+    def loss(self, ys, ypred, type="MSE"):
+
+        match type:
+            case "MSE":
+                loss = sum((yout - ygt) ** 2 for ygt, yout in zip(ys, ypred))
+                return loss
+            case _:
+                raise ValueError(f"{type} loss doesn't exist")
+                
+
+
+
     # xs are the inputs
     # ys are the outputs
     # epoch is how many iterations
@@ -92,14 +110,14 @@ class MLP:
 
         for k in range(epoch):
             # we feed the x input to the neural net
-            ypred = [self(x) for x in xs]
+            ypred = self.forward(xs)
     
             # for now im gonna use mean square error
             # basically we subtract the prediction to the real value
             # to get the error and we square that to eliminate negative values
             # we basically only want to go positive and our goal is to lower it to 0
-            loss = sum((yout - ygt) ** 2 for ygt, yout in zip(ys, ypred))
-    
+            loss = self.loss(ys, ypred)
+            
             self.zero_grad()
     
             # we back propagate now
@@ -116,8 +134,8 @@ class MLP:
             if k % 100 == 0 or k == epoch - 1:
                 print(f"epoch {k}: {loss.data}")
 
-        ypred = [self(x) for x in xs]
-        loss = sum((yout - ygt) ** 2 for ygt, yout in zip(ys, ypred)) # for vis
+        ypred = self.forward(xs)
+        loss = self.loss(ys,ypred) # for vis
 
         return ypred, loss
         
